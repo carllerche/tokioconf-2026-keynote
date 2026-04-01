@@ -12,10 +12,18 @@
 - TokioConf is a space for **practitioners** of async Rust networking to come together
   - Not just a Tokio conference — it's the async Rust networking community
   - Topics here go deeper than a general Rust conference allows
-- Why does this matter? We're still figuring things out. The hallway conversations,
-  the shared war stories — that's where the real progress happens
-  - _[FILL IN: personal anecdote about a conference conversation that changed your
-    thinking? or keep it general?]_
+- Why does this matter?
+  - General Rust conferences are broad — Rust is used for everything from embedded
+    to game engines to web services. The problems and patterns are wildly different
+    across those domains
+  - TokioConf narrows the focus: everyone here is working on async networking.
+    Same problem space, same challenges. That means the person sitting next to you
+    has probably hit the same issue you're stuck on
+  - There's still a lot to figure out, and that happens faster in person — face to
+    face, not through GitHub issues. Meet people, share what's working, take those
+    connections home with you
+  - _[FILL IN: consider a personal example — a time an in-person conversation
+    changed your thinking or unblocked a problem?]_
 
 ## 2. Tokio Turns 10 / The Origin Story (~3 min)
 
@@ -90,26 +98,46 @@
   - When you need to build the higher-level app on top of your infrastructure,
     consider reaching for Rust
 
-- **The reframe:**
-  - "If the barrier to entry is low, and productivity is the same — why would you
-    choose the slower, less reliable option?"
-  - Let that land.
+- **But we've been saying this for years. Why now?**
 
-- **The bold prediction:**
-  - "I see a path where, in 10 years, most new software written from scratch is
-    in Rust"
+### AI is the "why now" (~3-4 min)
+
+- AI is a revolution. It is going to change how everything is done. Disruptive.
+- And it happens to be **perfect** for Rust — it mitigates Rust's headwinds and
+  accentuates its tailwinds. Rust is the best target language for AI.
+- Three beats:
+  1. **Barrier to entry is collapsing** — the hardest thing about Rust was learning
+     it. AI solves that. The barrier to picking up Rust is effectively gone.
+  2. **Rust is the ideal target language for AI code generation** — the type system,
+     the borrow checker, the compiler guarantees all serve as guardrails that keep
+     AI-generated code on track and reduce bugs. AI writing Python is guessing. AI
+     writing Rust gets checked.
+  3. **The "slop radius"** — strong library abstractions constrain how far off the
+     rails AI-generated code can go. Good API design isn't just for humans anymore —
+     it's the guardrails for AI too. This makes the case for simple, well-typed
+     APIs even stronger.
+- _[NOTE: AI also partially mitigates the build time problem — the compile-wait
+  cycle hurts less when AI tools are also taking a few seconds to think. Consider
+  whether to include this or if it undercuts the "build times need to get better"
+  point]_
+- _[FILL IN: do you want a concrete example here? "I asked an AI to write X in
+  Rust and it compiled on the first try because the types guided it"?]_
+
+### The reframe + bold prediction
+
+- So: the learning curve is falling. AI writes better Rust than it writes anything
+  else. The ecosystem is starting to fill in.
+- **"If the barrier to entry is low, and productivity is the same — why would you
+  choose the slower, less reliable option?"**
+  - Let that land.
+- **"I see a path where, in 10 years, most new software written from scratch is
+  in Rust"**
   - _[FILL IN: how much do you want to qualify this? "I know that sounds crazy,
     but..." or just let it stand?]_
 
-- What's missing to get there:
-  - Ecosystem at the app level — libraries that prioritize productivity
-  - Build times — the code-compile-run cycle is a real problem. JS is killer here.
-    This needs to get better
-    - _[FILL IN: do you want to name specific efforts? Cranelift? Or leave it as
-      an open challenge?]_
-  - Simple, easy-to-use APIs (next section)
+## 7. What We Need to Build (~4-5 min)
 
-## 7. How We Get There (~4-5 min)
+- The bold prediction doesn't happen on its own. Here's what's still missing:
 
 ### Simple APIs — a design philosophy
 
@@ -121,9 +149,10 @@
     design too
   - _[FILL IN: can you give a one-sentence concrete example? "Maybe you can avoid
     that generic in favor of an enum" — is there a real case you can point to?]_
-
 - This isn't just about app-level code. Even at the infrastructure level, we
   don't need every power feature all the time
+- And with AI in the picture, simple APIs matter even more — they reduce the
+  slop radius (callback to the AI section)
 
 ### Toasty and what's next
 
@@ -140,23 +169,12 @@
 - But sharp edges remain: compiler errors with macros are rough
   - Better macro error messages would be a big win for the ecosystem
 
-### AI as tailwind
+### Build times
 
-- Rust is at a pivotal moment, and AI is one of the tailwinds
-- Three beats:
-  1. **Barrier to entry is collapsing** — the hardest thing about Rust was learning
-     it. AI is solving that. The barrier to starting with Rust is effectively gone
-  2. **Rust is the ideal target language for AI code generation** — the type system,
-     the borrow checker, the compiler guarantees all serve as guardrails that keep
-     AI-generated code on track and reduce bugs
-  3. **The "slop radius"** — strong library abstractions constrain how far off the
-     rails AI-generated code can go. Good API design isn't just for humans anymore —
-     it's the guardrails for AI too. This makes the case for simple, well-typed
-     APIs even stronger
-- _[NOTE: AI also partially mitigates the build time problem — the compile-wait
-  cycle hurts less when AI tools are also taking a few seconds to think. Consider
-  whether to include this or if it undercuts the "build times need to get better"
-  point]_
+- The code-compile-run cycle is a real problem. JS is killer here.
+  - This needs to get better
+  - _[FILL IN: do you want to name specific efforts? Cranelift? Or leave it as
+    an open challenge?]_
 
 ## 8. Close / Handoff to Alice (~1-2 min)
 

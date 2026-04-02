@@ -98,6 +98,18 @@
   - When you need to build the higher-level app on top of your infrastructure,
     consider reaching for Rust
 
+- **Rust doesn't just do the same things faster — it enables more**
+  - Toasty isn't "just" an ORM — it's an application-level query engine
+  - Only possible because of Rust's performance. We can afford a lot more
+    computation on the client side
+  - Tried doing this before in Ruby — too slow, obviously. In Java — less obvious,
+    but this kind of application churns objects which stresses the GC
+  - Rust is the only language where this works
+  - More productivity because we can push more functionality into the library.
+    The developer gets more for free
+  - _[This reframes "why Rust at the app level" from "same thing but faster" to
+    "things you literally couldn't build before"]_
+
 - **But we've been saying this for years. Why now?**
 
 ### AI is the "why now" (~3-4 min)

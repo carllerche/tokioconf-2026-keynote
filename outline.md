@@ -8,7 +8,12 @@
 
 ## 1. Welcome & Why TokioConf (~2 min)
 
-- Welcome everyone, express genuine excitement — this is the first TokioConf ever
+- Be the host. Warm, relaxed energy. Don't rush into content — let the room settle.
+- Welcome everyone. Express genuine excitement — this is the first TokioConf ever
+- Thank the audience for being here. People traveled for this. Acknowledge that —
+  "you being here is what makes this real"
+- Thank _[FILL IN: organizer name]_ for making this happen — all the logistics,
+  all the work behind the scenes to pull off the first one
 - TokioConf is a space for **practitioners** of async Rust networking to come together
   - Not just a Tokio conference — it's the async Rust networking community
   - Topics here go deeper than a general Rust conference allows

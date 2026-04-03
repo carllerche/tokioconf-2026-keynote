@@ -50,3 +50,33 @@ But here's what I've noticed. Teams that adopt Rust for infrastructure often sta
 Yes, the compile times are real. And yes, Rust can be a complex language. But the complexity? Those are power tools — lifetimes, advanced trait bounds, unsafe. You don't need them to build a web app. The real gap isn't the language — it's the ecosystem.
 
 Rust has a vibrant ecosystem, but it's historically focused on infrastructure. At the higher level, there just aren't as many libraries. That gap matters, because a full-featured, easy-to-use library ecosystem is a huge part, maybe the biggest part, of what makes a language productive for a given use case.
+
+# AI
+
+Ok, so now is the part where I need to put on my flame-retardant suit. I have to talk about AI. Look, whatever your feelings about AI, it is fundamentally changing how software gets written. That's just happening. Yes, there are ethical questions, but the cat is out of the bag, and whether we like it or not, it has implications for Rust.
+
+I said earlier that Rust's biggest headwind is getting started. Well, AI makes learning new things so much easier. I've seen devs that have never used Rust before drop in and be productive right away. No more three month learning curve. And no, I don't mean vibe coding — I mean using AI as a learning partner while doing real work. Developers have been hearing for years that Rust is fast, and reliable, and safe — but the learning curve kept them out. That barrier is gone.
+
+And here is the thing. It isn't just that AI helps you write Rust. Rust helps AI generate code. We've all heard the term 'AI slop' — the AI goes off track and generates junk. Well, what keeps it on track? Guardrails. And Rust is full of them. The type system, the borrow checker, the culture of misuse-resistant APIs — the same things that help us write better code also help AI write better code. I think that makes Rust the best target language for AI tools out there right now.
+
+---
+
+And here is the thing. It isn't just that AI helps you write Rust. Rust is the best target language for these AI tools. I've been calling this the 'slop radius' — how far off the rails can AI-generated code go before something catches it? With Rust, the compiler keeps it tight. Type errors, memory bugs — caught. But libraries can shrink it even further. A well-designed library with strong conventions and guardrails? The AI can't do the wrong thing if the API doesn't let it.
+
+---
+
+And here is the thing. It isn't just that AI helps you write Rust. Rust is the best target language for these AI tools. Rust's strong type system and the culture of misuse resistant APIs, the same things that helps us, as humans, write better code, also helps AI generate better code.
+
+But the compiler only gets you so far. It catches type errors, memory bugs. It doesn't catch bad design or logic bugs. That's where libraries come in.
+
+
+A well-designed, Rust library leverages the typesystem to make the pit of success as big as possible. This is generally good practice for humans, but it is also good for AI. Libraries with strong conventions, guard rails, and misuse resistant APIs limits how far off the rails AI can go, or what I started calling the slop radius.
+
+
+
+  "But the compiler only gets you so far. It catches type errors, memory bugs. It doesn't
+  catch bad design or logic bugs. That's where libraries come in. I've been calling this
+  the 'slop radius' — how far off the rails can AI-generated code go before something
+  catches it? The compiler shrinks it. But a well-designed library with strong conventions
+   and guardrails? That shrinks it way further. The AI can't do the wrong thing if the API
+   doesn't let it."

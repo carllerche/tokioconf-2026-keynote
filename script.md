@@ -1,7 +1,7 @@
 
 # WELCOME
 
-Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years, a conference for practitioners building network apps with Rust. Where we can come together and go deep. And really, the scope isn't just Tokio — it's async Rust networking as a whole.
+Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years — a place for practitioners building network apps with Rust to come together and go deep. 19% of all crates on crates.io depend on Tokio. I think it's about time we had our own conference. And really, the scope isn't just Tokio — it's async Rust networking as a whole.
 
 But, before I get into anything else — I have to thank Tiffanie, who did all the hard work to make this happen. All the logistics, and there was... a lot. So, thank you for taking all that on.
 
@@ -32,3 +32,9 @@ We take it for granted now. Obviously Rust has async/await. But I remember liste
 And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution an lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was aruging for in those pages and pages of RFC omments. Glad nobody listened to me.
 
 Show of hands: who here used Tokio before async / await? ... would you go back?
+
+# Where we are today
+
+No, and I think that is true across the industry now. I keep an eye out whenever a new open source infrastructure level project is announced, and the majority of them are build in Rust. I mean, we have people from some of the biggest companies in the world, working on the biggest services in the world. Now, I know that I am probably biased, but from where I am sitting, Rust has become the default for greenfield infrastructure where performance matters. And by all public metrics, Rust is still growing.
+
+# Why stop here

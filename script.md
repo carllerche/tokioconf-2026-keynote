@@ -21,4 +21,14 @@ But honestly, this wasn't just a Tower problem. Rust and the ecosystem was still
 
 Most developers using Rust back then were still power users and early adopters, able to figure out the more complicated compiler errors... well most of the time at least. And that was kind of the problem. Rust worked. It was fast, reliable. But it was a tough sell beyond the early adopters.
 
-The productivity story wasn't there yet, and without fixing that, I wasn't sure how much further we'd have gone. Because, fundamentally, technology adoption is about productivity: how fast can I use a programming language, a library, a tool, to accomplish my goal.
+The productivity story wasn't there yet, and without fixing that, I wasn't sure how much further we'd go. Because, fundamentally, technology adoption is about productivity: how fast can I use a programming language, a library, a tool, to accomplish my goal.
+
+# Async/await
+
+And then async/await happened... a total game changer. It gives us a friendly programming interface for writing async code — and it does it without adding any runtime cost compared to writing state machines by hand. Some would say it's actually better than doing it by hand, because you can borrow data across await points, which would be very hard to do safely without the construct. This is the good kind of zero-cost abstraction — the kind that's actually nice to use whether it's zero-cost or not.
+
+We take it for granted now. Obviously Rust has async/await. But I remember listening in on conversations the Rust team was having, trying to figure out how to do it, and it was not at all obvious, at the time, that it was possible. I know I didn't think it was — or at least I had no idea how. So, big props to the team that made it happen, including Aaron Turon, Taylor Cramer, and withoutboats.
+
+And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution an lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was aruging for in those pages and pages of RFC omments. Glad nobody listened to me.
+
+Show of hands: who here used Tokio before async / await? ... would you go back?

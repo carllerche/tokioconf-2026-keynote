@@ -1,7 +1,7 @@
 
 # WELCOME
 
-Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years — a place for practitioners building network apps with Rust to come together and go deep. 19% of all crates on crates.io depend on Tokio. I think it's about time we had our own conference. And really, the scope isn't just Tokio — it's async Rust networking as a whole.
+Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years — a place for practitioners building server applications with Rust to come together and go deep. 19% of all crates on crates.io depend on Tokio. I think it's about time we had our own conference. And really, the scope isn't just Tokio — it's async Rust networking as a whole.
 
 But, before I get into anything else — I have to thank Tiffanie, who did all the hard work to make this happen. All the logistics, and there was... a lot. So, thank you for taking all that on.
 

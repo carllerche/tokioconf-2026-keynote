@@ -154,6 +154,17 @@
 
 ## 7. What We Need to Build (~4-5 min)
 
+- **This argument is general across all verticals** — not just server networking.
+  Data pipelines, DevOps tooling, embedded, AI infrastructure, game dev, device
+  apps (desktop/mobile) — every vertical needs its own productive library stack.
+  - The "one language works well everywhere" argument is a strong productivity
+    boost, especially for device applications — the rise of Electron proves
+    developers will trade performance for the productivity of one language across
+    client and server. Rust offers that same unification *without* the performance
+    tradeoff.
+  - But we are focusing on server applications today because that's what this
+    audience builds and that's where I'm focused.
+
 - The bold prediction doesn't happen on its own. Here's what's still missing:
 
 ### Simple APIs — a design philosophy

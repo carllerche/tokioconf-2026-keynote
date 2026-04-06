@@ -71,3 +71,17 @@ I don't think there is a good reason. In fact, I believe that Rust has the oppor
 # What we need to build
 
 But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. And it means easy APIs that get out of your way — that remove the boilerplate and let you build features instead of getting bogged down in traits and lifetimes. That's what gets us there. And by the way, this isn't just about server applications. The same argument applies to data pipelines, device apps, game dev, DevOps tooling — every vertical. But server applications is what this room builds, so let's talk about what that looks like.
+
+# Toasty
+
+This is why I've been working on Toasty. Toasty is an ORM for Rust. Now, I know what some of you are thinking. "I don't like ORMs. I'd rather just write SQL. ORMs are too magical" And I get it. But think about that for a second, "magical"... is it really about "magic". SQL databases have full query engines — query planners, optimizers, tons of complexity under the hood. And we're all fine with that. The problem with ORMs isn't that they're magical. It's that the abstraction is leaky. They work great for the conventional cases, but the second you go across the grain, you hit a wall. And there's no good escape hatch. So you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
+
+# Application data is graph-based
+
+When I started Toasty, I wanted to fix that. The fundamental challenge is that application data is graph-based — a user has many todos, a todo belongs to a category — but SQL is relational. ORMs have been trying to bridge that gap for 20 years, but it's bigger than people think. So I decided to take a different approach. Toasty is built to understand both sides — how your application thinks about data and how your database stores it — and let you move between them seamlessly, even within the same query. That's the escape hatch. You never hit the ORM wall because you can always drop down to SQL, right in the middle of a query, and Toasty handles it.
+
+Now, to actually pull this off, Toasty needs something that, as far as I know, no ORM has tried before — a full application-level query engine. One that can actually understand, validate, plan, and translate queries across both levels. And this is where it comes full circle to Rust. Years ago, I actually worked on Ruby on Rails itself, including on ActiveRecord — and, back then, I wanted to something similar for ActiveReocrd. But, Ruby was way too slow, so it wasn't really an option. Rust really is the only language where putting a query engine into an ORM makes sense because it is both expressive enough for high-level abstractions and performant enough to do the work.
+
+And this is what excites me most about Rust. It's a language where you can build a query engine and an ORM in the same codebase. Think about what that means more broadly. Rust is a language where you can do work that's traditionally considered low-level — font rendering, layout engines, game engines, GPU programming — and high-level work like ORMs, web frameworks, developer tooling — in the same language. The ability to blend both into one is a superpower.
+
+Now, I want to be honest. Toasty is still early. This is a massive project and there's a lot of work ahead. But I'm optimistic that the direction is sound. And it's the first piece — there's more coming by end of year.

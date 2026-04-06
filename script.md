@@ -67,3 +67,7 @@ So think about where that leaves us. The learning curve — the biggest thing ho
 that gives you the most efficient and reliable end product.
 
 I don't think there is a good reason. In fact, I believe that Rust has the opportunity to become one of the top three languages for greenfield development in general over the next 10 years.
+
+# What we need to build
+
+But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. And it means easy APIs that get out of your way — that remove the boilerplate and let you build features instead of getting bogged down in traits and lifetimes. That's what gets us there. And by the way, this isn't just about server applications. The same argument applies to data pipelines, device apps, game dev, DevOps tooling — every vertical. But server applications is what this room builds, so let's talk about what that looks like.

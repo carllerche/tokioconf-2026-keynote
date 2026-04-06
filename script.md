@@ -17,7 +17,7 @@ And what Tokio looked like back then... very different. This is well before asyn
 
 But, we were still building with it. In 2017, I joined Buoyant. Their main product is LinkerD, a service mesh, which you can think of as a fancy proxy. And at the time I joined, they were rewriting it from Scala to Rust. Now, this is a pretty complex piece of software and approaching a project of that scope with pre-async/await Tokio was... a challenge. So we tried to manage it with abstraction. I worked on Tower, which uses traits to layer a request/response abstraction on top of Tokio. The goal being to compartmentalize all that state machine code. It helped, but at the cost of trait insanity. Whether it was actually an improvement is debatable.
 
-But honestly, this wasn't just a Tower problem. Rust and the ecosystem was still young. We were all figuring out how to design APIs. We were also drawn to the power of the type system. A lot of the buzz around Rust back then was zer-cost abstrations, and misuse-resistant APIs, which are both great things... when used the right way. I think a lot of us tried to work that in whenever we could, at the expense of bing user friendly. 
+But honestly, this wasn't just a Tower problem. Rust and the ecosystem was still young. We were all figuring out how to design APIs. We were also drawn to the power of the type system. A lot of the buzz around Rust back then was zero-cost abstractions, and misuse-resistant APIs, which are both great things... when used the right way. I think a lot of us tried to work that in whenever we could, at the expense of being user friendly. 
 
 Most developers using Rust back then were still power users and early adopters, able to figure out the more complicated compiler errors... well most of the time at least. And that was kind of the problem. Rust worked. It was fast, reliable. But it was a tough sell beyond the early adopters.
 
@@ -29,13 +29,13 @@ And then async/await happened... a total game changer. It gives us a friendly pr
 
 We take it for granted now. Obviously Rust has async/await. But I remember listening in on conversations the Rust team was having, trying to figure out how to do it, and it was not at all obvious, at the time, that it was possible. I know I didn't think it was — or at least I had no idea how. So, big props to the team that made it happen, including Aaron Turon, Taylor Cramer, and withoutboats.
 
-And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution an lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was aruging for in those pages and pages of RFC omments. Glad nobody listened to me.
+And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution an lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was arguing for in those pages and pages of RFC comments. Glad nobody listened to me.
 
 Show of hands: who here used Tokio before async / await? ... would you go back?
 
 # Where we are today
 
-No, and I think that is true across the industry now. I keep an eye out whenever a new open source infrastructure level project is announced, and the majority of them are build in Rust. I mean, we have people from some of the biggest companies in the world, working on the biggest services in the world. Now, I know that I am probably biased, but from where I am sitting, Rust has become the default for greenfield infrastructure where performance matters. And by all public metrics, Rust is still growing.
+No, and I think that is true across the industry now. I keep an eye out whenever a new open source infrastructure level project is announced, and the majority of them are built in Rust. I mean, we have people from some of the biggest companies in the world, working on the biggest services in the world. Now, I know that I am probably biased, but from where I am sitting, Rust has become the default for greenfield infrastructure where performance matters. And by all public metrics, Rust is still growing.
 
 # Why stop here
 
@@ -59,7 +59,7 @@ I said earlier that Rust's biggest headwind is getting started. Well, AI makes l
 
 And here is the thing. It isn't just that AI helps you write Rust. Rust helps AI generate code. We've all heard the term 'AI slop' — the AI goes off track and generates junk. Well, what keeps it on track? Guardrails. And Rust is full of them. The type system, the borrow checker, the culture of misuse-resistant APIs — the same things that help us write better code also help AI write better code. I think that makes Rust the best target language for AI tools out there right now.
 
-But the compiler can only do so much on its own. That's where libraries come in. The more functionality you can push into the library, the less code you or the AI has to write from scratch — and that's less surface area for things to go wrong. A well-designed library with strong conventions, leveraging Rust's type system to provid misuse-resistant APIs, shrinks the slop radius even further.
+But the compiler can only do so much on its own. That's where libraries come in. The more functionality you can push into the library, the less code you or the AI has to write from scratch — and that's less surface area for things to go wrong. A well-designed library with strong conventions, leveraging Rust's type system to provide misuse-resistant APIs, shrinks the slop radius even further.
 
 # Slide
 
@@ -80,7 +80,7 @@ This is why I've been working on Toasty. Toasty is an ORM for Rust. Now, I know 
 
 When I started Toasty, I wanted to fix that. The fundamental challenge is that application data is graph-based — a user has many todos, a todo belongs to a category — but SQL is relational. ORMs have been trying to bridge that gap for 20 years, but it's bigger than people think. So I decided to take a different approach. Toasty is built to understand both sides — how your application thinks about data and how your database stores it — and let you move between them seamlessly, even within the same query. That's the escape hatch. You never hit the ORM wall because you can always drop down to SQL, right in the middle of a query, and Toasty handles it.
 
-Now, to actually pull this off, Toasty needs something that, as far as I know, no ORM has tried before — a full application-level query engine. One that can actually understand, validate, plan, and translate queries across both levels. And this is where it comes full circle to Rust. Years ago, I actually worked on Ruby on Rails itself, including on ActiveRecord — and, back then, I wanted to something similar for ActiveReocrd. But, Ruby was way too slow, so it wasn't really an option. Rust really is the only language where putting a query engine into an ORM makes sense because it is both expressive enough for high-level abstractions and performant enough to do the work.
+Now, to actually pull this off, Toasty needs something that, as far as I know, no ORM has tried before — a full application-level query engine. One that can actually understand, validate, plan, and translate queries across both levels. And this is where it comes full circle to Rust. Years ago, I actually worked on Ruby on Rails itself, including on ActiveRecord — and, back then, I wanted to do something similar for ActiveRecord. But, Ruby was way too slow, so it wasn't really an option. Rust really is the only language where putting a query engine into an ORM makes sense because it is both expressive enough for high-level abstractions and performant enough to do the work.
 
 And this is what excites me most about Rust. It's a language where you can build a query engine and an ORM in the same codebase. Think about what that means more broadly. Rust is a language where you can do work that's traditionally considered low-level — font rendering, layout engines, game engines, GPU programming — and high-level work like ORMs, web frameworks, developer tooling — in the same language. The ability to blend both into one is a superpower.
 

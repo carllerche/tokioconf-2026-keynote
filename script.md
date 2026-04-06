@@ -1,7 +1,7 @@
 
 # WELCOME
 
-Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years — a place for practitioners building server applications with Rust to come together and go deep. 19% of all crates on crates.io depend on Tokio. I think it's about time we had our own conference. And really, the scope isn't just Tokio — it's async Rust networking as a whole.
+Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years — a place for practitioners building server applications with Rust to come together and go deep. Did you know, 19% of all crates on crates.io depend on Tokio. I think it's about time we had our own conference. And by that, I really mean async Rust networking as a whole, not just Tokio.
 
 But, before I get into anything else — I have to thank Tiffanie, who did all the hard work to make this happen. All the logistics, and there was... a lot. So, thank you for taking all that on.
 
@@ -11,7 +11,73 @@ So, I was thinking about what to actually talk about up here and went digging th
 
 Tokio is turning 10 this year... it was first announced in August 2016!  That is crazy! When I wrote that blog post, in no way did I imagine it would end up being used by some of the biggest web services in the world. And I definitely didn't imagine that I would still be working on it 10 years later... thats a long time. Back then, I was just trying to work on a hobby project, I think I was playing around with a distributed database (they were all the rage back then), but there was no async networking library for Rust. So, I decided to shave that yak.
 
-And what Tokio looked like back then... very different. This is well before async/await in Rust is a thing. Who here used Tokio before async await? ... it was a tough time. Before async/await, we had to write all of our state machines by hand. I considered including an example of it looked like, but I don't think it would fit on a slide.
+# Lets reminise
+
+Ok, so it iss the first TokioConf. I hope you will indulge some reminiscing. It is 2015. Mio is just released. The very first RustCamp just happened (it wasnt even called rustconf yet). Javascript promises are hot, but it doesn't have async/await syntax yet. I start playing around with futures on top of Mio:
+
+# Eventual
+
+```rust
+let (client, _) = tcp::connect(&"216.58.216.164:80".parse().unwrap()).unwrap();
+let (dst_tx, dst_rx) = r.stream(client);
+
+let a = dst_tx.send_all(src_rx).map_err(|_| ());
+let b = src_tx.send_all(dst_rx).map_err(|_| ());
+
+eventual::join((a, b)).and_then(|v| {
+    println!(" + Socket done");
+    Ok(v)
+})
+```
+
+You will have to bear with me a bit... this was 11 years ago. I hardly remember what code I wrote 1 year ago does. But this is basically what my first attempt looked liked. Note, I wasn't the only one exploring futures in Rust, and really all attempts more or less looked the same. The most important thing to note is, this implementation, and every other at the time, used allocated callbacks, and push futures. So each future here, every single closure you see, is essentially a oneshot channel with an allocated closure. The implication being that every single closure had to be send, sync, and static. Also, you end up with the same backpressure story all other push-based systems have: basically you are on your own. I'm glad this isn't what we ended up with, because one thing that I was proud about the Mio API is specifically that it doesn't push data to you, which makes handling back pressure much easier.
+
+# Rust futures
+
+So, about this time, some folks on the rust team also decided to explore Rust futures. And they had a brilliant insight, landed on a trait that was able to model futures while also maintaining the poll-based pattern that makes low-level I/O so efficient.
+
+```rust
+pub trait Future: Send + 'static {
+    type Item: Send + 'static;
+    type Error: Send + 'static;
+    fn poll(&mut self, task: &mut Task) -> Poll<Self::Item, Self::Error>;
+    fn schedule(&mut self, task: &mut Task);
+}
+```
+
+This is the earliest version of the trait I could find. Now, remember, up until now, nobody had yet designed a future that did not require a channel and callback at each step. The trait seems obvious now, but it it was pretty ingenous. You can already start seeing the shape that is the Future trait in Rust today. The biggest difference is the `schedule` method, which handles what wakers do today. When `poll` returns that it is not ready, the runtime would call schedule with the task handle, and the future would then be responsible for notifying the task when the future should be called again. So, to implement Future, you would implement poll similarly to what you do today, but you would also have to implement schedule to pass that task handle call through the stack a second time. In practice, this meant you had to duplicate your code, once for poll and once for schedule.
+
+# Tokio
+
+And this gets us to the original Tokio announcement in August 2016. When was working on Tokio, I tried using the future trait and noticed that pattern, that `poll` methods and `schedule` methods ended up being implemented to be identical. This is the solution I ended up coming up with, and I think is probably the one bit of invention I actually provided to Rust's async story, so I'm going to revel in it for a bit.
+
+```rust
+pub fn read(&self, buf: &mut [u8]) -> io::Result<usize> {
+    if !self.source.is_readable() {
+        return Err(would_block());
+    }
+
+    match (&self.mio).read(buf) {
+        Ok(n) => {
+            self.source.advance();
+            Ok(n)
+        }
+        Err(e) => {
+            if e.kind() == io::ErrorKind::WouldBlock {
+                self.source.unset_readable();
+            } else {
+                self.source.advance();
+            }
+
+            Err(e)
+        }
+    }
+}
+```
+
+This is the read function for a TCP socket in the very first version of Tokio. The signature was exactly the same as a blocking read. What I realized was that polling an I/O resource was an implicit intent of interest. What that means is, if you try to call read, the socket isn't ready, and it returns io-would-block, that you could implicitly register the task with the reactor to be scheduled as soon as the socket becomes ready again. There was no need for a second `schedule` method at all. I also ended up stashing the task variable from the original future trait in a thread-local so you didn't have to pass it through the call stack. Once I did that, I noticed you didn't even need a different signature and could repurpose the existing IO traits, so this was the very first Tokio socket read. Granted, nobody else thought that stashing the task handle in a thread-local and reusing blocking IO traits was a good idea, and yeah, they are probably right, so that part didn't stick, BUT, the pattern of using an async resource implies that you want the task to be scheduled when the IO resource becomes ready did stick and is the foundation of Rust async IO now.
+
+So yeah, that was Tokio back then... very different. Again, well before async/await in Rust. To actually use Tokio at this point required writing all futures by hand, which meant maintaining many state machines by hand, writing many many enums. I considered including a real-world example of using Tokio, but it didn't fit on a slide.
 
 # Pre-async/await
 

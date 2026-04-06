@@ -31,21 +31,21 @@ We take it for granted now. Obviously Rust has async/await. But I remember liste
 
 And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution an lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was arguing for in those pages and pages of RFC comments. Glad nobody listened to me.
 
-Show of hands: who here used Tokio before async / await? ... would you go back?
+Show of hands: who here used Tokio before async/await? ... now keep your hands up if you want to go back to pre-async/await. ... Exactly. Async/await is the killer feature that made using Rust for writing server applications actually productive.
 
 # Where we are today
 
-No, and I think that is true across the industry now. I keep an eye out whenever a new open source infrastructure level project is announced, and the majority of them are built in Rust. I mean, we have people from some of the biggest companies in the world, working on the biggest services in the world. Now, I know that I am probably biased, but from where I am sitting, Rust has become the default for greenfield infrastructure where performance matters. And by all public metrics, Rust is still growing.
+And look at what's happened since. I keep an eye out whenever a new open source infrastructure project is announced, and the majority of them are built in Rust. We have people from some of the biggest companies in the world, working on the biggest services in the world. Now, I know that I am probably biased, but from where I am sitting, Rust has become the default for greenfield infrastructure where performance matters. And by all public metrics, Rust is still growing.
 
 # Why stop here
 
 But here's the thing — performance, reliability, fewer bugs — those aren't infrastructure-specific benefits. Those are just... good things. For any software. So, not to be a Rust maximalist, but why isn't more software being written with Rust?
 
-At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, lets be honest. Not all software has efficient and reliable as a requirement. Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost slower development.
+At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, lets be honest. Not all software has efficient and reliable as a requirement. Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost of slower development.
 
 # Rust can be productive
 
-But here's what I've noticed. Teams that adopt Rust for infrastructure often start reaching for it for higher-level stuff too. Web apps, internal tools, things where performance isn't the main concern. Why? Because once you know Rust, you are past one of Rust's biggest productivity headwinds: getting started. You already know the language, the tooling, your team knows it, and you can share libraries across projects. One language across the stack is a real productivity win.
+And the common belief is that Rust means slower development. But I don't think that's true. Here's what I've noticed. Teams that adopt Rust for infrastructure often start reaching for it for higher-level stuff too. Web apps, internal tools, things where performance isn't the main concern. Why? Because once you know Rust, you are past one of Rust's biggest productivity headwinds: getting started. You already know the language, the tooling, your team knows it, and you can share libraries across projects. One language across the stack is a real productivity win.
 
 Yes, the compile times are real. And yes, Rust can be a complex language. But the complexity? Those are power tools — lifetimes, advanced trait bounds, unsafe. You don't need them to build a web app. The real gap isn't the language — it's the ecosystem.
 

@@ -136,11 +136,13 @@ I don't think there is a good reason. In fact, I believe that Rust has the oppor
 
 # What we need to build
 
-But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. And it means easy APIs that get out of your way — that remove the boilerplate and let you build features instead of getting bogged down in traits and lifetimes. That's what gets us there. And by the way, this isn't just about server applications. The same argument applies to data pipelines, device apps, game dev, DevOps tooling — every vertical. But server applications is what this room builds and what I know, so that is what I'm going to talk about.
+[meta: FIX HERE]
+
+But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. And it means easy APIs that get out of your way. That's what gets us there. And by the way, this isn't just about server applications. The same argument applies to data pipelines, device apps, game dev, DevOps tooling — every vertical. But server applications is what this room builds and what I know, so that is what I'm going to talk about.
 
 # premature optimization is the root of all evil
 
-So what does that actually look like? Well, we all know the Knuth quote — 'premature optimization is the root of all evil.' I think that applies to API design just as much as it applies to code. And I'm guilty of this too. We reach for traits when an enum would do. We add lifetime parameters to avoid a clone. We design for flexibility nobody asked for. And we end up with APIs that are powerful but painful to use. So when I started building for the higher level, I wanted to take a different approach. Prioritize productivity. Make it easy to use first, optimize later.
+So what does 'easy APIs' actually look like? Well, we all know the Knuth quote — 'premature optimization is the root of all evil.' I think that applies to API design just as much as it applies to code. And I'm guilty of this too. We reach for traits when an enum would do. We add lifetime parameters to avoid a clone. We design for flexibility nobody asked for. And we end up with APIs that are powerful but painful to use. So when I started building for the higher level, I wanted to take a different approach. Prioritize productivity. Make it easy to use first, optimize later.
 
 # Toasty
 
@@ -168,6 +170,7 @@ let user = User::get_by_email(&mut db, "alice@example.com").await?;
 
 That's it. Define your data, and start building. No lifetimes, minimal traits, no boilerplate. That's the kind of API I think we need more of in Rust. And I get it, it is hard. The draw to Rust's power features is strong. In fact, in an earlier version of Toasty, I fell to the temptation. That query there, "get_by_email", it takes a string-like argument. I had initially added a single lifetime to the query to avoid having to copy the argument. I thought, one lifetime, how bad could it be. Then, I realized I was going against my goals for Toasty and removed the lifetime. I think it will end up being the right decision, the query API is very simple. Time will tell.
 
+[Introduce "rust can go further than other languages can afford" here.]
 
 Now, building something that's this simple on the surface is actually really hard underneath — and that brings me to why I think ORMs deserve a rethink.
 

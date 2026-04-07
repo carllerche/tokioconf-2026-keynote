@@ -107,38 +107,33 @@ At the end of the day, it comes down to productivity. Pragmatic developers pick 
 
 # Rust can be productive
 
-And today, a common belief is still that Rust means slower development. But I don't think that's true. Here's what I've noticed. Teams that adopt Rust for infrastructure often start reaching for it for higher-level stuff too. Web apps, internal tools, things where performance isn't the main concern. If using Rust actually meant slower development, then why try to use it when you don't need its benefits? Why? Because once you know Rust, you are past one of Rust's biggest productivity headwinds: getting started. You already know the language, the tooling, your team knows it, and you can share libraries across projects. Once you are at that point, using Rust doesn't actually slow down devleopment, in that context it might actually mean faster development, because one language across the stack is a real productivity win.
+And today, a common belief is still that Rust means slower development. But I don't think that's true. Here's what I've noticed. Teams that adopt Rust for infrastructure often start reaching for it for higher-level stuff too. Web apps, internal tools, things where performance isn't the main concern. Why? Because once you know Rust, you're past its biggest productivity headwind: getting started. You already know the language, the tooling, your team knows it, and you can share libraries across projects. At that point, Rust doesn't slow you down — and one language across the stack is a real productivity win.
 
-Yes, the compile times are real. And yes, Rust can be a complex language. But the complexity? Those are power tools — lifetimes, advanced trait bounds, unsafe. You don't need them to build a web app. The real gap isn't the language — it's the ecosystem.
-
-Rust has a vibrant ecosystem, but it's historically focused on infrastructure. At the higher level, there just aren't as many libraries. That gap matters, because a full-featured, easy-to-use library ecosystem is a huge part, maybe the biggest part, of what makes a language productive for a given use case.
+Yes, the compile times are real. And yes, Rust can be a complex language. But the complexity? Those are power tools — lifetimes, advanced trait bounds, unsafe. You don't need them to build a web app. You can be highly productive with Rust while only using the "easy parts". The real gap isn't the language — it's the ecosystem. Rust has a vibrant ecosystem, but it's historically focused on infrastructure. At the higher level, there just aren't as many libraries. That gap matters, because a full-featured, easy-to-use library ecosystem is a huge part, maybe the biggest part, of what makes a language productive for a given use case.
 
 # AI
 
-Ok, so now is the part where I need to put on my flame-retardant suit. I have to talk about AI. Look, whatever your feelings about AI, it is fundamentally changing how software gets written. That's just happening. Yes, there are ethical questions, but the cat is out of the bag, and whether we like it or not, it has implications for Rust.
+Ok, so now is the part where I need to put on my flame-retardant suit. I have to talk about AI. Look, whatever your feelings are about AI, the fact is, it is fundamentally changing how software gets written. That's just happening. Yes, there are ethical questions, but the cat is out of the bag, and whether we like it or not, it has implications for Rust.
 
-I said earlier that Rust's biggest headwind is getting started. Well, AI makes learning new things so much easier. I've seen devs that have never used Rust before drop in and be productive right away. No more three month learning curve. And no, I don't mean vibe coding — I mean using AI as a learning partner while doing real work. Developers have been hearing for years that Rust is fast, and reliable, and safe — but the learning curve kept them out. That barrier is gone.
+I said earlier that Rust's biggest headwind is getting started. Well, AI makes learning new things so much easier. I've seen devs that have never used Rust before drop in and be productive right away. No more three month learning curve. And no, I don't mean vibe coding — I mean using AI as a learning partner while doing real, high quality, work. Developers have been hearing for years that Rust is fast, and reliable, and safe — but the learning curve kept them out... not because they couldn't manage it, but simply because they didn't have time, or the motivation to take it on. That barrier is now essentially gone.
 
-And here is the thing. It isn't just that AI helps you write Rust. Rust helps AI generate code. We've all heard the term 'AI slop' — the AI goes off track and generates junk. Well, what keeps it on track? Guardrails. And Rust is full of them. The type system, the borrow checker, the culture of misuse-resistant APIs — the same things that help us write better code also help AI write better code. I think that makes Rust the best target language for AI tools out there right now.
+And here is the thing. It isn't just that AI helps you write Rust. Rust helps AI generate code. We've all heard the term 'AI slop' — the AI goes off track and generates junk. Well, what keeps it on track? Guardrails. And Rust is full of them. The type system, the borrow checker, the culture of misuse-resistant APIs — the same things that help us write better code also help AI write better code. I think **that** makes Rust the best target language for AI tools out there right now.
 
-But the compiler can only do so much on its own. That's where libraries come in. The more functionality you can push into the library, the less code you or the AI has to write from scratch — and that's less surface area for things to go wrong. A well-designed library with strong conventions, leveraging Rust's type system to provide misuse-resistant APIs, shrinks the slop radius even further.
+But the compiler can only do so much on its ow... And that's where libraries come in. The more functionality you can push into the library, the less code you or the AI has to write from scratch — and that's less surface area for things to go wrong. A well-designed library with strong conventions, leveraging Rust's type system to provide misuse-resistant APIs, shrinks that slop radius even further.
 
 # Slide
 
-So think about where that leaves us. The learning curve — the biggest thing holding Rust back — is disappearing. And Rust's own strengths make it the best language for AI. So if productivity is the same, possibly better, why would you not pick the language
-that gives you the most efficient and reliable end product.
+So think about where that leaves us. The learning curve — the biggest thing holding Rust back — is disappearing. And Rust's own strengths make it the best language for AI. So if productivity is the same, possibly better, why would you not pick the language that gives you the most efficient and reliable end product.
 
-I don't think there is a good reason. In fact, I believe that Rust has the opportunity to become one of the top three languages for greenfield development in general over the next 10 years.
+I don't think there is a good reason. In fact, I believe that now, more than ever, Rust has the opportunity to become one of the top three languages for greenfield development in general.
 
 # What we need to build
 
-[meta: FIX HERE]
-
-But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. [pause] It means easy APIs that get out of your way. That's what gets us there. And by the way, this isn't just about server applications. The same argument can apply to desktop/mobile apps, data pipelines, whatever. But server applications is what what I know, and what this room builds, so that is what I'm going to talk about.
+But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. [pause] It means easy APIs, for all high-level use cases, that get out of your way. That's what gets us there. And by the way, this isn't just about server applications. The same argument can apply to desktop apps, mobile apps, data pipelines, whatever. But server applications is what what I know, and what this room builds, so that is what I'm going to talk about.
 
 # Toasty
 
-And I think the biggest missing piece for higher-level server applications in Rust is the database layer. If you think about what most server applications actually do — they read from a database, apply some business logic, write back to the database. That's the core of it. The database layer touches everything. Get that right, and you unlock a huge amount of productivity. That's what I've spent the last two years working on. Toasty is an ORM for Rust. Let me show you what it looks like.
+And I think the biggest missing piece for higher-level server applications in Rust, like web apps or backends for mobile apps, is at the database layer. If you think about what most of these kinds of apps actually do — they read from a database, apply some business logic, write back to the database. That's the core of it. The database layer touches everything. Get that right, and you unlock a huge amount of productivity. That's what I've spent the last two years working on. Toasty is an ORM for Rust. Let me show you what it looks like.
 
 ```rust
 #[derive(toasty::Model)]

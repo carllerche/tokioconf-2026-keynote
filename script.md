@@ -9,11 +9,11 @@ So, I was thinking about what to actually talk about up here and went digging th
 
 # Tokio turns 10
 
-Tokio is turning 10 this year... it was first announced in August 2016!  That is crazy! When I wrote that blog post, in no way did I imagine it would end up being used by some of the biggest web services in the world. And I definitely didn't imagine that I would still be working on it 10 years later... thats a long time. Back then, I was just trying to work on a hobby project, I think I was playing around with a distributed database (they were all the rage back then), but there was no async networking library for Rust. So, I decided to shave that yak.
+Tokio is turning 10 this year... it was first announced in August 2016!  That is crazy! When I wrote that blog post, in no way did I imagine it would end up being used by some of the biggest web services in the world. And I definitely didn't imagine that I would still be working on it 10 years later... that's a long time. Back then, I was just trying to work on a hobby project, I think I was playing around with a distributed database (they were all the rage back then), but there was no async networking library for Rust. So, I decided to shave that yak.
 
-# Lets reminise
+# Let's reminisce
 
-Ok, so it iss the first TokioConf. I hope you will indulge some reminiscing. It is 2015. Mio is just released. The very first RustCamp just happened (it wasnt even called rustconf yet). Javascript promises are hot, but it doesn't have async/await syntax yet. I start playing around with futures on top of Mio:
+Ok, so it is the first TokioConf. I hope you will indulge some reminiscing. It is 2015. Mio is just released. The very first RustCamp just happened (it wasn't even called RustConf yet). Javascript promises are hot, but it doesn't have async/await syntax yet. I start playing around with futures on top of Mio:
 
 # Eventual
 
@@ -30,11 +30,11 @@ eventual::join((a, b)).and_then(|v| {
 })
 ```
 
-You will have to bear with me a bit... this was 11 years ago. I hardly remember what code I wrote 1 year ago does. But this is basically what my first attempt looked liked. Note, I wasn't the only one exploring futures in Rust, and really all attempts more or less looked the same. The most important thing to note is, this implementation, and every other at the time, used allocated callbacks, and push futures. So each future here, every single closure you see, is essentially a oneshot channel with an allocated closure. The implication being that every single closure had to be send, sync, and static. Also, you end up with the same backpressure story all other push-based systems have: basically you are on your own. I'm glad this isn't what we ended up with, because one thing that I was proud about the Mio API is specifically that it doesn't push data to you, which makes handling back pressure much easier.
+You will have to bear with me a bit... this was 11 years ago. I hardly remember what code I wrote 1 year ago does. But this is basically what my first attempt looked like. Note, I wasn't the only one exploring futures in Rust, and really all attempts more or less looked the same. The most important thing to note is, this implementation, and every other at the time, required an allocation and a callback at every single step. And backpressure was entirely your problem.
+
+Needless to say, I'm glad this isn't what we ended up with. Because around the same time, some folks on the Rust team were also exploring futures — and they had a brilliant insight. They landed on a trait that was able to model futures while also maintaining the poll-based pattern that makes low-level I/O so efficient.
 
 # Rust futures
-
-So, about this time, some folks on the rust team also decided to explore Rust futures. And they had a brilliant insight, landed on a trait that was able to model futures while also maintaining the poll-based pattern that makes low-level I/O so efficient.
 
 ```rust
 pub trait Future: Send + 'static {
@@ -45,11 +45,11 @@ pub trait Future: Send + 'static {
 }
 ```
 
-This is the earliest version of the trait I could find. Now, remember, up until now, nobody had yet designed a future that did not require a channel and callback at each step. The trait seems obvious now, but it it was pretty ingenous. You can already start seeing the shape that is the Future trait in Rust today. The biggest difference is the `schedule` method, which handles what wakers do today. When `poll` returns that it is not ready, the runtime would call schedule with the task handle, and the future would then be responsible for notifying the task when the future should be called again. So, to implement Future, you would implement poll similarly to what you do today, but you would also have to implement schedule to pass that task handle call through the stack a second time. In practice, this meant you had to duplicate your code, once for poll and once for schedule.
+This is the earliest version of the trait I could find. Now, remember, up until now, nobody had yet designed a future that did not require a channel and callback at each step. The trait seems obvious now, but it was pretty ingenious. You can already start seeing the shape that is the Future trait in Rust today. The biggest difference is the `schedule` method, which handles what wakers do today. When `poll` returns that it is not ready, the runtime would call schedule with the task handle, and the future would then be responsible for notifying the task when the future should be called again. So, to implement Future, you would implement poll similarly to what you do today, but you would also have to implement schedule to pass that task handle call through the stack a second time. In practice, this meant you had to duplicate your code, once for poll and once for schedule.
 
 # Tokio
 
-And this gets us to the original Tokio announcement in August 2016. When was working on Tokio, I tried using the future trait and noticed that pattern, that `poll` methods and `schedule` methods ended up being implemented to be identical. This is the solution I ended up coming up with, and I think is probably the one bit of invention I actually provided to Rust's async story, so I'm going to revel in it for a bit.
+And this gets us to the original Tokio announcement in August 2016. When I was working on Tokio, I tried using the future trait and noticed that pattern, that `poll` methods and `schedule` methods ended up being implemented to be identical. This is the solution I ended up coming up with, and I think is probably the one bit of invention I actually provided to Rust's async story, so I'm going to revel in it for a bit.
 
 ```rust
 pub fn read(&self, buf: &mut [u8]) -> io::Result<usize> {
@@ -95,7 +95,7 @@ And then async/await happened... a total game changer. It gives us a friendly pr
 
 We take it for granted now. Obviously Rust has async/await. But I remember listening in on conversations the Rust team was having, trying to figure out how to do it, and it was not at all obvious, at the time, that it was possible. I know I didn't think it was — or at least I had no idea how. So, big props to the team that made it happen, including Aaron Turon, Taylor Cramer, and withoutboats.
 
-And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution an lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was arguing for in those pages and pages of RFC comments. Glad nobody listened to me.
+And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time. Yes being able to drop async blocks at any point of the execution can lead to confusing bugs... hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before. At least we didn't end up with prefix await syntax, which is what I was arguing for in those pages and pages of RFC comments. Glad nobody listened to me.
 
 Show of hands: who here used Tokio before async/await? ... now keep your hands up if you want to go back to pre-async/await. ... Exactly. Async/await is the killer feature that made using Rust for writing server applications actually productive.
 
@@ -107,7 +107,7 @@ And look at what's happened since. I keep an eye out whenever a new open source 
 
 But here's the thing — performance, reliability, fewer bugs — those aren't infrastructure-specific benefits. Those are just... good things. For any software. So, not to be a Rust maximalist, but why isn't more software being written with Rust?
 
-At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, lets be honest. Not all software has efficient and reliable as a requirement. Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost of slower development.
+At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, let's be honest. Not all software has efficient and reliable as a requirement. Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost of slower development.
 
 # Rust can be productive
 

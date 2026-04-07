@@ -146,7 +146,7 @@ So what does 'easy APIs' actually look like? Well, we all know the Knuth quote �
 
 # Toasty
 
-This is why I've been working on Toasty. Toasty is an ORM for Rust. Let me show you what it looks like.
+And I think the biggest missing piece for higher-level server applications in Rust is the database layer. If you think about what most server applications actually do — they read from a database, apply some business logic, write back to the database. That's the core of it. The database layer touches everything. Get that right, and you unlock a huge amount of productivity. That's what I've spent the last two years working on. Toasty is an ORM for Rust. Let me show you what it looks like.
 
 ```rust
 #[derive(toasty::Model)]
@@ -168,12 +168,13 @@ toasty::create!(User::[
 let user = User::get_by_email(&mut db, "alice@example.com").await?;
 ```
 
+[TODO: maybe talk about macros in this section]
+
 That's it. Define your data, and start building. No lifetimes, minimal traits, no boilerplate. That's the kind of API I think we need more of in Rust. And I get it, it is hard. The draw to Rust's power features is strong. In fact, in an earlier version of Toasty, I fell to the temptation. That query there, "get_by_email", it takes a string-like argument. I had initially added a single lifetime to the query to avoid having to copy the argument. I thought, one lifetime, how bad could it be. Then, I realized I was going against my goals for Toasty and removed the lifetime. I think it will end up being the right decision, the query API is very simple. Time will tell.
 
-[Introduce "rust can go further than other languages can afford" here.]
+But I think we can go further than just rebuilding what other languages have. We can build libraries that take advantage of Rust's unique strengths. And honestly, this is a lesson I had to learn myself. You saw Eventual earlier — that was me trying to copy the callback pattern from other languages, and it worked even worse in Rust. When we leaned into what Rust is actually good at — poll-based, zero-allocation futures — we got Tokio. And it was so much better. There's a pattern here. And that's why, when I started working on Toasty, I ended up rethinking ORMs from the ground up.
 
-Now, building something that's this simple on the surface is actually really hard underneath — and that brings me to why I think ORMs deserve a rethink.
-
+[META: flow through next few paragraphs is weird]
 
 Now, I know what some of you are thinking. "I don't like ORMs. I'd rather just write SQL. ORMs are too magical" And I get it. But think about that for a second, "magical"... is it really about "magic". SQL databases have full query engines — query planners, optimizers, tons of complexity under the hood. And we're all fine with that. The problem with ORMs isn't that they're magical. It's that the abstraction is leaky. They work great for the conventional cases, but the second you go across the grain, you hit a wall. And there's no good escape hatch. So you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
 

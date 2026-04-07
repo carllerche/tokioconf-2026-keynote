@@ -1,19 +1,19 @@
 
 # WELCOME
 
-Hey everyone! Welcome to the first ever TokioConf. Yes! I am also so excited that we're actually doing this. I've been wanting a conference like this for years — a place for practitioners building server applications with Rust to come together and go deep. Did you know, 19% of all crates on crates.io depend on Tokio. I think it's about time we had our own conference. And by that, I really mean async Rust networking as a whole, not just Tokio.
+Hey everyone! Welcome to the first ever TokioConf. I really ams excited that we're actually doing this. I've been wanting a conference like this for years. A conference for practitioners building server applications with Rust to come together and go deep. Did you know, 19% of all crates on crates.io depend on Tokio? I think it's about time we had our own conference. And by "we", I really mean async Rust networking as a whole, not just Tokio.
 
 But, before I get into anything else — I have to thank Tiffanie, who did all the hard work to make this happen. All the logistics, and there was... a lot. So, thank you for taking all that on.
 
-So, I was thinking about what to actually talk about up here and went digging through old blog posts for inspiration, including the original blog post I wrote announcing Tokio, and I noticed something.
+So, I was thinking about what to actually talk about up here and I started digging through old blog posts for inspiration... including the original blog post I wrote announcing Tokio, and I noticed something.
 
 # Tokio turns 10
 
-Tokio is turning 10 this year... it was first announced in August 2016!  That is crazy! When I wrote that blog post, in no way did I imagine it would end up being used by some of the biggest web services in the world. And I definitely didn't imagine that I would still be working on it 10 years later... that's a long time. Back then, I was just trying to work on a hobby project, I think I was playing around with a distributed database (they were all the rage back then), but there was no async networking library for Rust. So, I decided to shave that yak.
+Tokio is turning 10 years old this year... yeah. it was first announced in August of 2016!  That is crazy! When I wrote that blog post, in no way did I imagine it would end up being used by some of the biggest web services in the world. And I definitely didn't imagine that I would still be working on it 10 years later... that's a long time. Back then, I was just trying to work on a hobby project, I think I was playing around with a distributed database (they were all the rage back then), but there was no async networking library for Rust. So, I decided to shave that yak, and here we are.
 
 # Let's reminisce
 
-Ok, so it is the first TokioConf. I hope you will indulge some reminiscing. It is 2015. Mio is just released. The very first RustCamp just happened (it wasn't even called RustConf yet). Javascript promises are hot, but it doesn't have async/await syntax yet. I start playing around with futures on top of Mio:
+Ok, so it is the first TokioConf. I hope you will indulge some reminiscing. The year is 2015. Mio is just released. The very first RustCamp just happened (it wasn't even called RustConf yet). Javascript has promises, but no async/await syntax yet. I decided to start playing around with futures on top of Mio:
 
 # Eventual
 
@@ -30,7 +30,7 @@ eventual::join((a, b)).and_then(|v| {
 })
 ```
 
-You will have to bear with me a bit... this was 11 years ago. I hardly remember what code I wrote 1 year ago does. But this is basically what my first attempt looked like. Note, I wasn't the only one exploring futures in Rust, and really all attempts more or less looked the same. The most important thing to note is, this implementation, and every other at the time, required an allocation and a callback at every single step. And backpressure was entirely your problem.
+My first iteration was called Eventual... which actually is a pretty good name, I don't remember why I didn't stick with it to be honest. Anyway, this was an example of Eventual I dug up. You will have to bear with me a bit... this was 11 years ago. I hardly remember what code I wrote 1 year ago does. I would say it is relatively self evident. The most important thing to note is, this implementation, required an allocation and a callback at every single step. And backpressure was entirely your problem.
 
 Needless to say, I'm glad this isn't what we ended up with. Because around the same time, some folks on the Rust team were also exploring futures — and they had a brilliant insight. They landed on a trait that was able to model futures while also maintaining the poll-based pattern that makes low-level I/O so efficient.
 
@@ -160,7 +160,7 @@ let user = User::get_by_email(&mut db, "alice@example.com").await?;
 
 That's it. Define your data, and start building. No lifetimes, minimal traits, no boilerplate. That's the kind of API I think we need more of in Rust. We all know the Knuth quote — 'premature optimization is the root of all evil.' I think that applies to API design just as much as it applies to code. And I'm guilty of this too. We reach for traits when an enum would do. We add lifetime parameters to avoid a clone. We design for flexibility nobody asked for. And we end up with APIs that are powerful but painful to use. In fact, in an earlier version of Toasty, I fell to the temptation. That query there, "get_by_email", it takes a string-like argument. I had initially added a single lifetime to the query to avoid having to copy the argument. I thought, one lifetime, how bad could it be. Then, I realized I was going against my goals for Toasty and removed the lifetime. I think it will end up being the right decision, the query API is very simple. Time will tell.
 
-Now, you might have noticed — Toasty uses macros. A lot. And I know macros are controversial. The big objection is that they're a black box — you can't see the generated code, IDE support suffers, and when something goes wrong, the compiler errors can be cryptic. Those are real problems, and I don't want to dismiss them. In fact, I've already started a conversation with the compiler team about improving error messages for macro-generated code.
+Now, you might have noticed — Toasty uses macros. A lot. And I know not everyone loves macros. The big objection is that they're a black box — you can't see the generated code, IDE support suffers, and when something goes wrong, the compiler errors can be cryptic. Those are real problems, and I don't want to dismiss them. But that means we should fix them and lean into macros, not avoid using them. In fact, I've already started a conversation with the compiler team with ideas for improving error messages for macro-generated code.
 
 But I think macros are one of Rust's biggest productivity superpowers, and we're underusing them. Think about serde. Serde is consistently cited as one of the best things about Rust — and not because of performance. It's because of the developer experience. You slap `#[derive(Serialize, Deserialize)]` on a struct and it just works. That's a macro doing all the heavy lifting, and nobody complains because the productivity boost is massive.
 

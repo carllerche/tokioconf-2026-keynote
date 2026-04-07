@@ -136,7 +136,11 @@ I don't think there is a good reason. In fact, I believe that Rust has the oppor
 
 # What we need to build
 
-But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. And it means easy APIs that get out of your way — that remove the boilerplate and let you build features instead of getting bogged down in traits and lifetimes. That's what gets us there. And by the way, this isn't just about server applications. The same argument applies to data pipelines, device apps, game dev, DevOps tooling — every vertical. But server applications is what this room builds, so let's talk about what that looks like.
+But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. And it means easy APIs that get out of your way — that remove the boilerplate and let you build features instead of getting bogged down in traits and lifetimes. That's what gets us there. And by the way, this isn't just about server applications. The same argument applies to data pipelines, device apps, game dev, DevOps tooling — every vertical. But server applications is what this room builds and what I know, so that is what I'm going to talk about.
+
+# premature optimization is the root of all evil
+
+So what does that actually look like? Well, we all know the Knuth quote — 'premature optimization is the root of all evil.' I think that applies to API design just as much as it applies to code. And I'm guilty of this too. We reach for traits when an enum would do. We add lifetime parameters to avoid a clone. We design for flexibility nobody asked for. And we end up with APIs that are powerful but painful to use. So when I started building for the higher level, I wanted to take a different approach. Prioritize productivity. Make it easy to use first, optimize later.
 
 # Toasty
 

@@ -144,7 +144,35 @@ So what does that actually look like? Well, we all know the Knuth quote — 'pre
 
 # Toasty
 
-This is why I've been working on Toasty. Toasty is an ORM for Rust. Now, I know what some of you are thinking. "I don't like ORMs. I'd rather just write SQL. ORMs are too magical" And I get it. But think about that for a second, "magical"... is it really about "magic". SQL databases have full query engines — query planners, optimizers, tons of complexity under the hood. And we're all fine with that. The problem with ORMs isn't that they're magical. It's that the abstraction is leaky. They work great for the conventional cases, but the second you go across the grain, you hit a wall. And there's no good escape hatch. So you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
+This is why I've been working on Toasty. Toasty is an ORM for Rust. Let me show you what it looks like.
+
+```rust
+#[derive(toasty::Model)]
+struct User {
+    #[key]
+    #[auto]
+    id: u64,
+    #[unique]
+    email: String,
+    name: String,
+}
+
+// Batch insert
+toasty::create!(User::[
+    { name: "Alice", email: "alice@example.com" },
+    { name: "Bob",   email: "bob@example.com" },
+]).exec(&mut db).await?;
+
+let user = User::get_by_email(&mut db, "alice@example.com").await?;
+```
+
+That's it. Define your data, and start building. No lifetimes, minimal traits, no boilerplate. That's the kind of API I think we need more of in Rust. And I get it, it is hard. The draw to Rust's power features is strong. In fact, in an earlier version of Toasty, I fell to the temptation. That query there, "get_by_email", it takes a string-like argument. I had initially added a single lifetime to the query to avoid having to copy the argument. I thought, one lifetime, how bad could it be. Then, I realized I was going against my goals for Toasty and removed the lifetime. I think it will end up being the right decision, the query API is very simple. Time will tell.
+
+
+Now, building something that's this simple on the surface is actually really hard underneath — and that brings me to why I think ORMs deserve a rethink.
+
+
+Now, I know what some of you are thinking. "I don't like ORMs. I'd rather just write SQL. ORMs are too magical" And I get it. But think about that for a second, "magical"... is it really about "magic". SQL databases have full query engines — query planners, optimizers, tons of complexity under the hood. And we're all fine with that. The problem with ORMs isn't that they're magical. It's that the abstraction is leaky. They work great for the conventional cases, but the second you go across the grain, you hit a wall. And there's no good escape hatch. So you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
 
 # Application data is graph-based
 

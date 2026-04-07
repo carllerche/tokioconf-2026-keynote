@@ -184,11 +184,11 @@ Now, to actually pull this off, Toasty needs something that, as far as I know, n
 
 And this is what excites me most about Rust. It's a language where you can build a query engine and an ORM in the same codebase. Think about what that means more broadly. Rust is a language where you can do work that's traditionally considered low-level — font rendering, layout engines, game engines, GPU programming — and high-level work like ORMs, web frameworks, developer tooling — in the same language. The ability to blend both into one is a superpower.
 
-So when we think about building that library ecosystem, we shouldn't just be recreating what exists in other languages. We should be asking: what new features and abstractions does Rust make possible? That's how we get there — not by catching up, but by building something better.
+And that's really what I want to leave you with. When we think about building that library ecosystem, we shouldn't just be recreating what exists in other languages. We should be asking: what does Rust make possible that wasn't possible before? That's how we get there — not by catching up, but by building something better.
 
 [meta: maybe a joke about wanting to do more w/ power of the query engine. Something about "crazy ideas"]
 
-Now, I want to be honest. Toasty is still early. This is a massive project and there's a lot of work ahead. But I'm optimistic that the direction is sound. And it's the first piece — there's more coming by end of year.
+That, and also you should totally use Toasty for all your ORM needs. Though, full disclosure, Toasty is still very early and there is a lot of work ahead.
 
 # Why this matters to you
 

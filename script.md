@@ -1,7 +1,7 @@
 
 # WELCOME
 
-Hey everyone! Welcome to the first ever TokioConf. I really ams excited that we're actually doing this. I've been wanting a conference like this for years. A conference for practitioners building server applications with Rust to come together and go deep. Did you know, 19% of all crates on crates.io depend on Tokio? I think it's about time we had our own conference. And by "we", I really mean async Rust networking as a whole, not just Tokio.
+Hey everyone! Welcome to the first ever TokioConf. I really am so excited that we're actually doing this. I've been wanting a conference like this for years. A conference for practitioners building server applications with Rust to come together and go deep. Did you know, 19% of all crates on crates.io depend on Tokio? I think it's about time we had our own conference. And by "we", I really mean async Rust networking as a whole, not just Tokio.
 
 But, before I get into anything else — I have to thank Tiffanie, who did all the hard work to make this happen. All the logistics, and there was... a lot. So, thank you for taking all that on.
 
@@ -77,7 +77,7 @@ pub fn read(&self, buf: &mut [u8]) -> io::Result<usize> {
 }
 ```
 
-This is the read function for the TCP socket type in the very first version of Tokio — I dug up the code and copy/pasted it. Look at the signature — it's identical to a regular blocking read, and there is no separate `schedule` method. What I realized was: if the runtime is polling a socket for data, or any future really, and it isn't ready, we should just assume the runtime wants to be notified when the socket becomes ready. That's it. The poll itself already tells you everything you need to know. So `schedule` just... went away. And again, this seems obvious in hindsight, but it really wasn't at the time... which I guess is the best kind of insight. Anyway, I also thought it was clever to match the blocking read method signature exactly — the idea was that any existing implementation of the Read and Write traits could then just work with Tokio. In practice, that didn't work out so well, so it didn't stick. But that core idea — that polling implies wanting to readiness notification — that did stick. It's the foundation of Rust async IO today...
+This is the read function for the TCP socket type in the very first version of Tokio — I dug up the code and copy/pasted it. Look at the signature — it's identical to a regular blocking read, and there is no separate `schedule` method. What I realized was: if the runtime is polling a socket for data, or any future really, and it isn't ready, we should just assume the runtime wants to be notified when the socket becomes ready. That's it. The poll itself already tells you everything you need to know. So `schedule` just... went away. And again, this seems obvious in hindsight, but it really wasn't at the time... which I guess is the best kind of insight. Anyway, I also thought it was clever to match the blocking read method signature exactly — the idea was that any existing implementation of the Read and Write traits could then just work with Tokio. In practice, that didn't work out so well, so it didn't stick. But that core idea — that polling implies wanting readiness notification — that did stick. It's the foundation of Rust async IO today...
 
 So yeah, that was Tokio back then... very different. This was well before async/await. And to be honest, using it was not great. But people were still building with it.
 

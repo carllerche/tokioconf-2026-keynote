@@ -103,7 +103,7 @@ And look at what's happened since. I keep an eye out whenever a new open source 
 
 But here's the thing — performance, reliability, fewer bugs — those aren't just useful for infrastructure-level applications. Those are just... good things. For any software. So, not to be a Rust maximalist, but why isn't more software being written with Rust?
 
-At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, let's be honest. Not all software has efficient and reliable as a requirement. Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost of slower development.
+At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, let's be honest. Not all software has efficient and reliable as a requirement... Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost of slower development.
 
 # Rust can be productive
 

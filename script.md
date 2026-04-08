@@ -185,6 +185,6 @@ That, and also you should totally use Toasty for all your ORM needs. Though, ful
 
 So why am I talking about higher-level libraries to a room full of infrastructure developers? Well, because Rust adoption starts with you. Rust gets into organizations through infrastructure, and it grows out from there. Maybe it's a control plane, or an admin dashboard, or an internal tool for managing your service — something that doesn't need to be fast, it just needs to get built. And if the ecosystem is there, you can say "just use Rust" with a straight face. And when you do, they get fast and reliable for free.
 
-And that's what I hope we talk about over the next couple of days. Not just how to make async Rust faster, but how to make Rust easier. How to make it productive. How to make it the obvious choice for more than just infrastructure. Because if we do, I truly believe Rust becomes the default — not just for performance-sensitive infrastructure, but for greenfield development in general.
+And that's what I hope we talk about — not just over the next couple of days, but going forward as a community. Not just how to make async Rust faster, but how to make Rust easier. How to make it productive. How to make it the obvious choice for more than just infrastructure. Because if we do, I truly believe Rust becomes the default — not just for performance-sensitive infrastructure, but for greenfield development in general.
 
 Thank you. Alice is going to come up and talk about what's next for Tokio.

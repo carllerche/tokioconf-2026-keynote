@@ -215,32 +215,58 @@ Now, you might have noticed — Toasty uses macros. A lot. And I know not everyo
 
 And that's exactly why these issues are worth solving — macros are already one of Rust's biggest developer experience superpowers, and could become more so. Think about serde. Serde is consistently cited as one of the best things about Rust — and not because of performance... because of the developer experience. You slap `#[derive(Serialize, Deserialize)]` on a struct and it just works. That's a macro doing all the heavy lifting, and nobody complains because the productivity boost is massive and it works the way you would expect. Macros give Rust the expressivity of dynamic languages like Ruby or JavaScript — but with full type safety.
 
+# Slide 22: Beyond parity
+
+> Beyond parity
+
 But I think we can go further than just matching what other languages have. We can build libraries that take advantage of Rust's unique strengths, and be better because of it. This is a lesson I had to learn myself over the years. You saw Eventual earlier — that was me trying to copy the callback pattern from other languages, and it didn't work out well in Rust. But when we leaned into designing for Rust, we got Tokio. And, at least for me, that is a tough lesson. Every time I start a new library, I always go in hopeful I can just copy my favorite equivalent library from another language because... well that would just be easier. But, it never quite workers.  What works is leaning into what Rust is actually good at. So that's why, when I started working on Toasty, I ended up rethinking ORMs from the ground up... because, why not.
+
+# Slide 23: Second chances
+
+> Second chances
 
 Now, I know what some of you are thinking. ORMs can trigger a strong response. Many of you have been burned before. I've heard things "I don't like ORMs. I'd rather just write SQL. ORMs are too complex." And you aren't wrong to be skeptical. But think about what SQL databases do under the hood — query planners, optimizers, tons of complexity. And we're all fine with that. The difference isn't the complexity — it's whether the abstraction actually holds up. SQL engines are smart enough to handle the complexity they take on. ORMs, historically,... just aren't. So you hit a wall, there's no escape hatch, and you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
 
-# Slide 22: Application data is graph-based
+# Slide 24: Application data is graph-based
+
+> Graph ≠ Relational
 
 So when I started Toasty, I took the lesson I keep learning and asked — instead of copying ORMs from other languages, can I lean into Rust to do something better? [pause] So, the fundamental challenge with ORMs is that application data is graph-based — a user has many todos, a todo belongs to a category — but SQL is relational. And what existing ORMs do is take a query written against that graph model and try to directly translate it to SQL. That works for simple cases, but the two models don't map cleanly onto each other, so the translation breaks down fast. That's the wall everyone hits.
 
+# Slide 25: What if
+
+> What if?
+
 What if the ORM could understand your application's data model the same way a SQL database understands its schema? What if it could plan and optimize queries at the application level, the same way Postgres does at the database level? Then the translation doesn't have to be direct — it can be smart. The ORM can figure out the right way to get your data, even when the graph-to-relational mapping isn't obvious.
 
+# Slide 26: Query engine
+
+> A query engine for your ORM
+
 Now, to actually pull this off, Toasty needs something that, as far as I know, no ORM has tried before — a full application-level query engine. One that can actually understand, validate, plan, and translate queries across both levels. And this is where it comes full circle to Rust. Years ago, I was actually on the Ruby on Rails core team. In case you don't already know, Rails is a web framework, and ActiveRecord is its ORM — and, back then, we talked about giving ActiveRecord a deeper understanding of the application-level data models But Ruby was way too slow, so it wasn't really an option. Rust really is the only language where putting a query engine into an ORM makes sense because it is both expressive enough for high-level abstractions and performant enough to do the work.
+
+# Slide 27: Rust's superpower
+
+> Rust's superpower
 
 And this is what excites me most about Rust. It's a language where you can build a query engine directly into an ORM. Think about what that means more broadly. Rust is a language where you can do work that's traditionally considered low-level — font rendering, layout engines, game engines, GPU programming — and high-level work like ORMs, web frameworks, developer tooling — in the same language. The ability to blend both into one is powerful. And honestly, I don't think we've even scratched the surface of what that makes possible.
 
 And that's really what I want to leave you with. When we think about building that library ecosystem, we shouldn't just be recreating what exists in other languages. We should be asking: what does Rust make possible that wasn't possible before? That's how we get there — not by catching up, but by building something better.
 
-[meta: maybe a joke about wanting to do more w/ power of the query engine. Something about "crazy ideas"]
-
 That, and also you should totally use Toasty for all your ORM needs. Though, full disclosure, Toasty is still very early and there is a lot of work ahead. So, please try it and give me your feedback.
 
-# Slide 23: Why this matters to you
+# Slide 28: Why this matters to you
+
+> Why this matters to you
 
 So why am I talking about higher-level libraries to a room full of infrastructure developers? Because as Rust grows in your organization, you're going to be the ones building the shared libraries — the internal frameworks, hopefully some open source ones too. When you do, keep easy APIs as a priority. Don't reach for the power tools when you don't need them.
 
 And beyond that — you're the ones who got Rust through the door. Now, your teammates are going to start asking if it's ready for more. Is Rust a good fit for the next control plane, or an admin dashboard, or an internal tool — something that doesn't need to be fast, it just needs to get built. And if the ecosystem is there, you can say "just use Rust" with a straight face.
 
 That's what I hope we talk about — not just over the next couple of days, but going forward as a community. Not just how to make async Rust faster, but how to make Rust easier. How to make it productive. How to make it the obvious choice for more than just infrastructure. Because if we do, I truly believe Rust becomes the default — not just for performance-sensitive infrastructure, but for greenfield development in general.
+
+# Slide 29: Transition
+
+> TODO
 
 Thank you. Alice is going to come up and talk about what's next for Tokio.

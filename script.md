@@ -177,9 +177,13 @@ In fact, I believe that now, more than ever, Rust has the opportunity to become 
 
 But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. [pause] It means easy APIs, for all high-level use cases, that get out of your way. That's what gets us there. And by the way, this isn't just about server applications. The same argument can apply to desktop apps, mobile apps, game development, whatever. But server applications is what what I know, and what this room builds, so that is what I'm going to talk about.
 
-# Slide 19: Toasty
+# Slide 19: The next frontier
+
+> The next frontier: the application layer
 
 And I think the biggest missing piece for higher-level server applications in Rust, like web apps or backends for mobile apps, is at the database layer. If you think about what most of these kinds of apps actually do — they read from a database, apply some business logic, write back to the database. That's the core of it. The database layer touches everything. Get that right, and you unlock a huge amount of productivity. That's what I've spent the last two years working on. Toasty is an ORM for Rust. Let me show you what it looks like.
+
+# Slide 20: Toasty
 
 ```rust
 #[derive(toasty::Model)]
@@ -203,6 +207,10 @@ let user = User::get_by_email(&mut db, "alice@example.com").await?;
 
 That's it. Define your data, and start building. No lifetimes, minimal traits, no boilerplate. That's the kind of API I think we need more of in Rust. We all know the Knuth quote — 'premature optimization is the root of all evil.' I think that applies to API design just as much as it applies to code. We reach for traits when an enum would do. We add lifetime parameters to avoid a clone. We design for flexibility nobody asked for. And we end up with APIs that are powerful but painful to use. And I'm guilty of this too, maybe more than most (*cough* tower). In fact, in an earlier version of Toasty, I fell to the temptation. That query there, "get_by_email", it takes a string-like argument. I had initially added a single lifetime to the query to avoid having to copy the argument. I thought, one lifetime, how bad could it be. Then, I realized I was going against my goals for Toasty and removed the lifetime. I think it will end up being the right decision, the query API is very simple. Time will tell.
 
+# Slide 21: Macros
+
+> macros!
+
 Now, you might have noticed — Toasty uses macros. A lot. And I know not everyone loves macros. The big objection is that they're a black box — you can't see the generated code, IDE support suffers, and when something goes wrong, the compiler errors can be cryptic. Those are real problems, and I don't want to dismiss them. But that means we should fix them and lean into macros, not avoid using them. In fact, I've already started a conversation with some the compiler team with ideas for improving error messages for macro-generated code. Because, one of the top things people cite that they love about Rust is how friendly the compiler error messages can be. I think there is a path to get compiler error messages for macros at the same level, where they can catch errors early and guide the user to fix it instead of being cryptic.
 
 And that's exactly why these issues are worth solving — macros are already one of Rust's biggest developer experience superpowers, and could become more so. Think about serde. Serde is consistently cited as one of the best things about Rust — and not because of performance... because of the developer experience. You slap `#[derive(Serialize, Deserialize)]` on a struct and it just works. That's a macro doing all the heavy lifting, and nobody complains because the productivity boost is massive and it works the way you would expect. Macros give Rust the expressivity of dynamic languages like Ruby or JavaScript — but with full type safety.
@@ -211,7 +219,7 @@ But I think we can go further than just matching what other languages have. We c
 
 Now, I know what some of you are thinking. ORMs can trigger a strong response. Many of you have been burned before. I've heard things "I don't like ORMs. I'd rather just write SQL. ORMs are too complex." And you aren't wrong to be skeptical. But think about what SQL databases do under the hood — query planners, optimizers, tons of complexity. And we're all fine with that. The difference isn't the complexity — it's whether the abstraction actually holds up. SQL engines are smart enough to handle the complexity they take on. ORMs, historically,... just aren't. So you hit a wall, there's no escape hatch, and you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
 
-# Slide 20: Application data is graph-based
+# Slide 22: Application data is graph-based
 
 So when I started Toasty, I took the lesson I keep learning and asked — instead of copying ORMs from other languages, can I lean into Rust to do something better? [pause] So, the fundamental challenge with ORMs is that application data is graph-based — a user has many todos, a todo belongs to a category — but SQL is relational. And what existing ORMs do is take a query written against that graph model and try to directly translate it to SQL. That works for simple cases, but the two models don't map cleanly onto each other, so the translation breaks down fast. That's the wall everyone hits.
 
@@ -227,7 +235,7 @@ And that's really what I want to leave you with. When we think about building th
 
 That, and also you should totally use Toasty for all your ORM needs. Though, full disclosure, Toasty is still very early and there is a lot of work ahead. So, please try it and give me your feedback.
 
-# Slide 21: Why this matters to you
+# Slide 23: Why this matters to you
 
 So why am I talking about higher-level libraries to a room full of infrastructure developers? Because as Rust grows in your organization, you're going to be the ones building the shared libraries — the internal frameworks, hopefully some open source ones too. When you do, keep easy APIs as a priority. Don't reach for the power tools when you don't need them.
 

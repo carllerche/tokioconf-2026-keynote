@@ -159,9 +159,9 @@ I said earlier that Rust's biggest headwind is getting started. Well, AI makes l
 
 And here is the thing. It isn't just that AI helps you write Rust. Rust helps AI generate code. We've all heard the term 'AI slop' — the AI goes off track and generates junk. Well, what keeps it on track? Guardrails. And Rust is full of them. The type system, the borrow checker, the culture of misuse-resistant APIs — the same things that help us write better code also help AI write better code. I think **that** makes Rust the best target language for AI tools out there right now.
 
-# Slide here
+# Slide 17: Libraries as guardrails
 
-> ??
+> Libraries as guardrails
 
 But the compiler can only do so much on its own... And that's where libraries come in. The more functionality you can push into the library, the less code you or the AI has to write from scratch — and that's less surface area for things to go wrong. A well-designed library with strong conventions, leveraging Rust's type system to provide misuse-resistant APIs, shrinks that slop radius even further. I think that now, more than ever, in this new era we are entering of AI assisted or AI written code, these high quality libraries with well defined abstraction boundaries are going to become even more important.
 
@@ -169,7 +169,7 @@ So think about where that leaves us. The learning curve — the biggest thing ho
 
 I don't think there is a good reason.
 
-# Slide 17: The opportunity
+# Slide 18: The opportunity
 
 > Top 3 language for greenfield development
 

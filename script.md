@@ -3,7 +3,7 @@
 
 [Tokio logo]
 
-Hey everyone! Welcome to the first ever TokioConf. Seriously, it is so exciting that we are actually doing this! I've been wanting a conference like this for years. Somewhere for practitioners building server applications with Rust to come together and go deep. Because, did you know, 19% of all crates on crates.io depend on Tokio? I think it's about time we, and by "we", I mean the async rust networking community as a whole, had our own conference... and now we do.
+Hey everyone! Welcome to the first ever TokioConf. Seriously, it is so exciting that we are actually doing this! I've been wanting a conference like this for years. Somewhere for Rustaceans building server applications to come together and go deep. Because, did you know, 19% of all crates on crates.io depend on Tokio? I think it's about time we, and by "we", I mean the async rust networking community as a whole, had our own conference... and now we do.
 
 But, before I get into anything else — I have to thank Tiffanie, who did all the hard work to make this happen. All the logistics, and there was... a lot. So, thank you for taking all that on.
 
@@ -12,6 +12,8 @@ So, I was thinking about what to actually talk about up here and I started diggi
 # Slide 02: Tokio turns 10
 
 > 🎂 Tokio turns 10 🎉
+
+[TODO: comment about hand curated emoji]
 
 Tokio is turning 10 years old this year... yeah. it was first announced in August of 2016!  That is crazy! When I wrote that blog post, in no way did I imagine it would end up being used by some of the biggest web services in the world. And I definitely didn't imagine that I would still be working on it 10 years later... that's a long time. Back then, I was just trying to work on a hobby project, I think I was playing around with a distributed database (they were all the rage back then), but there was no async networking library for Rust. So, I decided to shave that yak, and here we are.
 
@@ -219,7 +221,7 @@ And that's exactly why these issues are worth solving — macros are already one
 
 > Beyond parity
 
-But I think we can go further than just matching what other languages have. We can build libraries that take advantage of Rust's unique strengths, and be better because of it. This is a lesson I had to learn myself over the years. You saw Eventual earlier — that was me trying to copy the callback pattern from other languages, and it didn't work out well in Rust. But when we leaned into designing for Rust, we got Tokio. And, at least for me, that is a tough lesson. Every time I start a new library, I always go in hopeful I can just copy my favorite equivalent library from another language because... well that would just be easier. But, it never quite workers.  What works is leaning into what Rust is actually good at. So that's why, when I started working on Toasty, I ended up rethinking ORMs from the ground up... because, why not.
+But I think we can go further than just matching what other languages have. We can build libraries that take advantage of Rust's unique strengths, and be better because of it. This is a lesson I had to learn myself over the years. You saw Eventual earlier — that was me trying to copy the callback pattern from other languages, and it didn't work out well in Rust. But when we leaned into designing for Rust, we got Tokio. And, at least for me, that is a tough lesson. Every time I start a new library, I always go in hopeful I can just copy my favorite equivalent library from another language because... well that would just be easier. But, it never quite works.  What works is leaning into what Rust is actually good at. So that's why, when I started working on Toasty, I ended up rethinking ORMs from the ground up... because, why not.
 
 # Slide 23: Second chances
 
@@ -250,6 +252,8 @@ Now, to actually pull this off, Toasty needs something that, as far as I know, n
 > Rust's superpower
 
 And this is what excites me most about Rust. It's a language where you can build a query engine directly into an ORM. Think about what that means more broadly. Rust is a language where you can do work that's traditionally considered low-level — font rendering, layout engines, game engines, GPU programming — and high-level work like ORMs, web frameworks, developer tooling — in the same language. The ability to blend both into one is powerful. And honestly, I don't think we've even scratched the surface of what that makes possible.
+
+[TODO: consider adding something about JS browsers & write once run everywhere]
 
 And that's really what I want to leave you with. When we think about building that library ecosystem, we shouldn't just be recreating what exists in other languages. We should be asking: what does Rust make possible that wasn't possible before? That's how we get there — not by catching up, but by building something better.
 

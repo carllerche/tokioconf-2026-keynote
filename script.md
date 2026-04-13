@@ -105,7 +105,7 @@ In 2017, I joined Buoyant to work on Linkerd, a service mesh, which you can thin
 
 Yes, rust is fast and reliable, but the productivity story wasn't there yet. And without fixing that, I wasn't sure how much further Rust would have gone in the server application space. Because, fundamentally, technology adoption is about productivity: how fast can I use a programming language, a library, a tool, to accomplish my goal.
 
-# Slide 09: Async/await
+# Slide 10: Async/await
 
 > async/await
 
@@ -115,27 +115,27 @@ We take it for granted now. Obviously Rust has async/await. But I remember liste
 
 And look, yes it isn't perfect. Yes Pin is hard to use... but you don't have to touch it most of the time, and when you do need to for some reason the pin-project macro is great. Yes being able to drop async blocks at any point of the execution can lead to confusing bugs... if we had known then what we know now, I'm sure the design would be different, but hindsight is 20/20 as they say. Overall, the async syntax we have today is so much better than what we were doing before.
 
-# Slide 10: Show of hands
+# Slide 11: Show of hands
 
 > ✋
 
 Show of hands: who here used Tokio before async/await? ... now keep your hands up if you want to go back to pre-async/await. ... Exactly. Async/await is the killer feature that made using Rust for writing server applications actually productive.
 
-# Slide 11: Where we are today
+# Slide 12: Where we are today
 
 > Rust is the default for infrastructure
 
 And look at what's happened since. I keep an eye out whenever a new open source infrastructure project is announced, and the majority of them are built in Rust. We have people from some of the biggest companies in the world, working on the biggest services in the world. Now, I know that I am probably biased, but from where I am sitting, Rust has become the default for greenfield server-applications where performance matters. And by all public metrics, Rust is still growing. And I don't think that would have happened without async/await syntax.
 
-# Slide 12: Why stop here
+# Slide 13: Why stop here
 
-> Why stop at infrastructure?
+> Why stop?
 
 But here's the thing — performance, reliability, fewer bugs — those aren't just useful for infrastructure-level applications. Those are just... good things. For any software. So, not to be a Rust maximalist, but why isn't more software being written with Rust?
 
 At the end of the day, it comes down to productivity. Pragmatic developers pick whatever gets them to their goal fastest. When the requirement is efficient and reliable, Rust gets you there quickest. But, let's be honest. Not all software has efficient and reliable as a requirement... Sure, those are nice to have, and all things equal, of course you will pick efficient and reliable, but not at the cost of slower development.
 
-# Slide 13: Rust can be productive
+# Slide 14: Rust can be productive
 
 > Rust = slow development?
 
@@ -143,25 +143,25 @@ And today, a common belief is still that Rust means slower development. But I do
 
 Yes, Rust can be a complex language. But the complexity? Those are power tools — lifetimes, advanced trait bounds, unsafe. You don't need them to build a web app. You can be highly productive with Rust while only using the "easy parts". The real gap isn't the language — it's the ecosystem. Rust has a vibrant ecosystem, but it's historically focused on infrastructure. At the higher level, there just aren't as many libraries. That gap matters, because a full-featured, easy-to-use library ecosystem is a huge part, maybe the biggest part, of what makes a language productive for a given use case.
 
-# Slide 14: AI
+# Slide 15: AI
 
 > 🤖
 
 Ok, so now is the part where I need to put on my flame-retardant suit. I have to talk about AI. Look, whatever your feelings are about AI, the fact is, it is fundamentally changing how software gets written. That's just happening. Yes, there are ethical questions, but the cat is out of the bag, and whether we like it or not, it has implications for Rust.
 
-# Slide 15: AI lowers Rust's barrier
+# Slide 16: AI lowers Rust's barrier
 
 > AI lowers Rust's barrier
 
 I said earlier that Rust's biggest headwind is getting started. Well, AI makes learning new things so much easier. I've seen devs that have never used Rust before drop in and be productive right away. No more three month learning curve. And no, I don't mean vibe coding — I mean using AI as a learning partner while doing real, high quality, work. Developers have been hearing for years that Rust is fast, and reliable, and safe — but the learning curve kept them out... not because they couldn't manage it, but simply because they didn't have time, or the motivation to take it on. That barrier is now essentially gone.
 
-# Slide 16: Rust helps AI
+# Slide 17: Rust helps AI
 
 > Rust 🤝 AI
 
 And here is the thing. It isn't just that AI helps you write Rust. Rust helps AI generate code. We've all heard the term 'AI slop' — the AI goes off track and generates junk. Well, what keeps it on track? Guardrails. And Rust is full of them. The type system, the borrow checker, the culture of misuse-resistant APIs — the same things that help us write better code also help AI write better code. I think **that** makes Rust the best target language for AI tools out there right now.
 
-# Slide 17: Libraries as guardrails
+# Slide 18: Libraries as guardrails
 
 > Libraries as guardrails
 
@@ -171,7 +171,7 @@ So think about where that leaves us. The learning curve — the biggest thing ho
 
 I don't think there is a good reason.
 
-# Slide 18: The opportunity
+# Slide 19: The opportunity
 
 > Top 3 language for greenfield development
 
@@ -179,13 +179,14 @@ In fact, I believe that now, more than ever, Rust has the opportunity to become 
 
 But it won't just happen by itself. It will only happen if Rust becomes synonymous with productivity. That means a rich library ecosystem that handles the plumbing for you. [pause] It means easy APIs, for all high-level use cases, that get out of your way. That's what gets us there. And by the way, this isn't just about server applications. The same argument can apply to desktop apps, mobile apps, game development, whatever. But server applications is what what I know, and what this room builds, so that is what I'm going to talk about.
 
-# Slide 19: The next frontier
+# Slide 20: The next frontier
 
 > The next frontier: the application layer
+> The application layer is the next frontier
 
 And I think the biggest missing piece for higher-level server applications in Rust, like web apps or backends for mobile apps, is at the database layer. If you think about what most of these kinds of apps actually do — they read from a database, apply some business logic, write back to the database. That's the core of it. The database layer touches everything. Get that right, and you unlock a huge amount of productivity. That's what I've spent the last two years working on. Toasty is an ORM for Rust. Let me show you what it looks like.
 
-# Slide 20: Toasty
+# Slide 21: Toasty
 
 ```rust
 #[derive(toasty::Model)]
@@ -204,48 +205,49 @@ toasty::create!(User::[
     { name: "Bob",   email: "bob@example.com" },
 ]).exec(&mut db).await?;
 
-let user = User::get_by_email(&mut db, "alice@example.com").await?;
+let user = User::get_by_email(
+    &mut db, "alice@example.com").await?;
 ```
 
 That's it. Define your data, and start building. No lifetimes, minimal traits, no boilerplate. That's the kind of API I think we need more of in Rust. We all know the Knuth quote — 'premature optimization is the root of all evil.' I think that applies to API design just as much as it applies to code. We reach for traits when an enum would do. We add lifetime parameters to avoid a clone. We design for flexibility nobody asked for. And we end up with APIs that are powerful but painful to use. And I'm guilty of this too, maybe more than most (*cough* tower). In fact, in an earlier version of Toasty, I fell to the temptation. That query there, "get_by_email", it takes a string-like argument. I had initially added a single lifetime to the query to avoid having to copy the argument. I thought, one lifetime, how bad could it be. Then, I realized I was going against my goals for Toasty and removed the lifetime. I think it will end up being the right decision, the query API is very simple. Time will tell.
 
-# Slide 21: Macros
+# Slide 22: Macros
 
 > macros!
 
 Now, you might have noticed — Toasty uses macros. And I know not everyone loves macros. The big objection is that they're a black box — you can't see the generated code, IDE support suffers, and when something goes wrong, the macro-related compiler errors can be cryptic. Those are real problems, and I don't want to dismiss them. But think about serde. Serde is the crate people reach for when they want to show what makes Rust great — and not because of performance... it's because of the developer experience. You slap `#[derive(Serialize, Deserialize)]` on a struct and it just works. That's a macro doing all the heavy lifting, and nobody complains because the productivity boost is massive. Macros give Rust the expressivity of dynamic languages like Ruby or JavaScript — but with full type safety. So the answer isn't to avoid macros — it's 1) to use them approprietly and 2) to fix the rough edges. And that's happening. I've already started a conversation with the compiler team with ideas for improving error messages for macro-generated code, and I think there's a real path to get there. We all know how good Rust's compiler errors are. Imagine if macro authors could do the same — provide specific, helpful error messages when their macro is misused. That's what we should be aiming for.
 
-# Slide 22: Beyond parity
+# Slide 23: Beyond parity
 
 > Beyond parity
 
 So if we build out that high-level library ecosystem — easy APIs, less boilerplate — that gets us to productivity parity with dynamic languages. But I think we can go further. We can build libraries that take advantage of Rust's unique strengths, and be better because of it. This is a lesson I had to learn myself over the years. You saw Eventual earlier — that was me trying to copy the callback pattern from other languages, and it didn't work out well in Rust. But when we leaned into designing for Rust, we got Tokio. And, at least for me, that is a tough lesson. Every time I start a new library, I always go in hopeful I can just copy my favorite equivalent library from another language because... well that would just be easier. But, it never quite works.  What works is leaning into what Rust is actually good at. So that's why, when I started working on Toasty, I ended up rethinking ORMs from the ground up... because, why not.
 
-# Slide 23: Second chances
+# Slide 24: Second chances
 
 > Second chances
 
 Now, I know what some of you are thinking. ORMs can trigger a strong response. Many of you have been burned before. I've heard things "I don't like ORMs. I'd rather just write SQL. ORMs are too complex." And you aren't wrong to be skeptical. But think about what SQL databases do under the hood — query planners, optimizers, tons of complexity. And we're all fine with that. The difference isn't the complexity — it's whether the abstraction actually holds up. SQL engines are smart enough to handle the complexity they take on. ORMs, historically,... just aren't. So you hit a wall, there's no escape hatch, and you throw it all out and go back to raw SQL. But that's throwing the baby out with the bathwater.
 
-# Slide 24: Application data is graph-based
+# Slide 25: Application data is graph-based
 
 > Graph ≠ Relational
 
 So when I started Toasty, I took the lesson I keep learning and asked — instead of copying ORMs from other languages, can I lean into Rust to do something better? [pause] So, the fundamental challenge with ORMs is that application data is graph-based — a user has many todos, a todo belongs to a category — but SQL is relational. And what existing ORMs do is take a query written against that graph model and try to directly translate it to SQL. That works for simple cases, but the two models don't map cleanly onto each other, so the translation breaks down fast. That's the wall everyone hits.
 
-# Slide 25: What if
+# Slide 26: What if
 
 > What if?
 
 What if the ORM could understand your application's data model the same way a SQL database understands its schema? What if it could plan and optimize queries at the application level, the same way Postgres does at the database level? Then the translation doesn't have to be direct — it can be smart. The ORM can figure out the right way to get your data, even when the graph-to-relational mapping isn't obvious.
 
-# Slide 26: Query engine
+# Slide 27: Query engine
 
 > A query engine for your ORM
 
 Now, to actually pull this off, Toasty needs something that, as far as I know, no ORM has tried before — a full application-level query engine. One that can actually understand, validate, plan, and translate queries across both levels. And this is where it comes full circle to Rust. Years ago, I was actually on the Ruby on Rails core team. In case you don't already know, Rails is a web framework, and ActiveRecord is its ORM — and, back then, we talked about giving ActiveRecord a deeper understanding of the application-level data models But Ruby was way too slow, so it wasn't really an option. Rust really is the only language where putting a query engine into an ORM makes sense because it is both expressive enough for high-level abstractions and performant enough to do the work.
 
-# Slide 27: Rust's superpower
+# Slide 28: Rust's superpower
 
 > Rust's superpower
 
@@ -257,9 +259,9 @@ And that's really what I want to leave you with. When we think about building th
 
 That, and also you should totally use Toasty for all your ORM needs. Though, full disclosure, Toasty is still very early and there is a lot of work ahead. So, please try it and give me your feedback.
 
-# Slide 28: Why this matters to you
+# Slide 29: Why this matters to you
 
-> Why this matters to you
+> Why this matters
 
 So why am I talking about higher-level libraries to a room full of infrastructure developers? Because as Rust grows in your organization, you're going to be the ones building the shared libraries — the internal frameworks, hopefully some open source ones too. When you do, keep easy APIs as a priority. Don't reach for the power tools when you don't need them.
 
@@ -267,7 +269,7 @@ And beyond that — you're the ones who got Rust through the door. Now, your tea
 
 That's what I hope we talk about — not just over the next couple of days, but going forward as a community. Not just how to make async Rust faster, but how to make Rust easier. How to make it productive. How to make it the obvious choice for more than just infrastructure. Because if we do, I truly believe Rust becomes the default — not just for performance-sensitive infrastructure, but for greenfield development in general.
 
-# Slide 29: Transition
+# Slide 30: Transition
 
 > TODO
 

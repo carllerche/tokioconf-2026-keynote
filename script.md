@@ -514,16 +514,14 @@ So, please try it and give me your feedback.
 > Why this matters
 
 So why am I talking about higher-level libraries to a room full of
-infrastructure developers? Because as Rust grows in your organization, you're
-going to be the ones building the shared libraries — the internal frameworks,
-hopefully some open source ones too. When you do, keep easy APIs as a priority.
-Don't reach for the power tools when you don't need them.
-
-And beyond that — you're the ones who got Rust through the door. Now, your
-teammates are going to start asking if it's ready for more. Is Rust a good fit
-for the next control plane, or an admin dashboard, or an internal tool —
-something that doesn't need to be fast, it just needs to get built. And if the
-ecosystem is there, you can say "just use Rust" with a straight face.
+infrastructure developers? Well, honestly, I don't think "infrastructure
+developer" is going to be a thing in the future. The divide between high-level
+and low-level was always more about what a given developer happened to know than
+any fundamental difference. And, especially with AI, barriers to entry are not
+going to be significant anymore. So if there is a problem to solve, whether
+high-level or low-level, we should be able to solve it, and if we're solving it,
+we're going to want to be doing it with Rust. So lets make sure that Rust is the
+most productive tool to solve those problems.
 
 That's what I hope we talk about — not just over the next couple of days, but
 going forward as a community. Not just how to make async Rust faster, but how to

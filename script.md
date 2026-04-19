@@ -514,14 +514,15 @@ So, please try it and give me your feedback.
 > Why this matters
 
 So why am I talking about higher-level libraries to a room full of
-infrastructure developers? Well, honestly, I don't think "infrastructure
-developer" is going to be a thing in the future. The divide between high-level
-and low-level was always more about what a given developer happened to know than
-any fundamental difference. And, especially with AI, barriers to entry are not
-going to be significant anymore. So if there is a problem to solve, whether
-high-level or low-level, we should be able to solve it, and if we're solving it,
-we're going to want to be doing it with Rust. So lets make sure that Rust is the
-most productive tool to solve those problems.
+infrastructure developers? Well, honestly, I don't think the divide between
+infrastructure and application developers is going to matter much in the future.
+It was always more about what a given developer happened to know than any
+fundamental difference. And with AI lowering the learning barrier, developers
+are going to be a lot more versatile. If there's a problem to solve — high-level
+or low-level — we should be able to solve it. And if we're solving it, most of
+us will probably want to do it in Rust. We're already bought into the
+performance and reliability, and we already know the language. So let's make
+sure Rust is the most productive tool for the job.
 
 That's what I hope we talk about — not just over the next couple of days, but
 going forward as a community. Not just how to make async Rust faster, but how to
